@@ -1,8 +1,6 @@
 import sys
 from tkinter import *
 
-#temp text
-
 ABOUT_TEXT = """
 Introduction of rules
 """

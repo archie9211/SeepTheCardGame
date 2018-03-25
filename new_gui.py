@@ -230,20 +230,116 @@ def vp_start_gui():
                             print(pimgname)
                             return potLabelIndicator, pimgname
 
-    def build():
+    lowvalMsg = "the value of card is less than that needed to make a house"
+
+    def buildHouse(selectedcard, selectedFaceCard, potCards,thrower=1):
+        valhouse1 = valHouse(house1)
+        valhouse2 = valHouse(house2)
+        flag = 0
+        if thrower == 1:
+            if (selectedFaceCard) < 9:
+                return lowvalMsg
+            else:
+                if len(house1) == 0:
+                    for i in range(len(potCards)):
+                        if int(str(potCards[i][1:])) + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                            flag = 1
+                            house1.append(potCards[i])
+                            house1.append(selectedcard)
+                            del (potCards[i])
+                            for j in range(len(potCards)):
+                                if int(str(potCards[i])) + int(str(potCards[j])) == int(str(selectedFaceCards[j][1:])):
+                                    house1.append(potCards[i])
+                                    house1.append(potCards[j])
+                                    del (potCards[i])
+                                    del (potCards[j])
+                    if flag == 0:
+                        build.throw(selectedcard, 1)
+                elif len(house2) == 0:
+                    for i in range(len(potCards)):
+                        if int(str(potCards[i][1:])) + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                            flag = 1
+                            house1.append(potCards[i])
+                            house1.append(selectedcard)
+                            del (potCards[i])
+                            for j in range(len(potCards)):
+                                if int(str(potCards[i])) + int(str(potCards[j])) == int(str(selectedFaceCards[j][1:])):
+                                    house2.append(potCards[i])
+                                    house2.append(potCards[j])
+                                    del (potCards[i])
+                                    del (potCards[j])
+                    if flag == 0:
+                        build.throw(selectedcard, 1)
+                elif valhouse1 < 13 and int(str(selectedFaceCard[1:])) > valhouse1:
+                    if valhouse1 + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                        house1.append(selectedcard)
+                elif valhouse2 < 13 and int(str(selectedFaceCard[1:])) > valhouse2:
+                    if valhouse2 + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                        house2.append(selectedcard)
+                else:
+                    pick.pickCards(selectedcard, 1)
+        else:
+            if int(str(selectedFaceCard[1:])) < 9:
+                return lowvalMsg
+            else:
+                if len(house1) == 0:
+                    for i in range(len(potCards)):
+                        if int(str(potCards[i][1:])) + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                            flag = 1
+                            house1.append(potCards[i])
+                            house1.append(selectedcard)
+                            del (potCards[i])
+                            for j in range(len(potCards)):
+                                if int(str(potCards[i])) + int(str(potCards[j])) == int(str(selectedFaceCards[j][1:])):
+                                    house1.append(potCards[i])
+                                    house1.append(potCards[j])
+                                    del (potCards[i])
+                                    del (potCards[j])
+                    if flag == 0:
+                        build.throw(selectedcard, 1)
+                elif len(house2) == 0:
+                    for i in range(len(potCards)):
+                        if int(str(potCards[i][1:])) + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                            flag = 1
+                            house1.append(potCards[i])
+                            house1.append(selectedcard)
+                            del (potCards[i])
+                            for j in range(len(potCards)):
+                                if int(str(potCards[i])) + int(str(potCards[j])) == int(str(selectedFaceCards[j][1:])):
+                                    house2.append(potCards[i])
+                                    house2.append(potCards[j])
+                                    del (potCards[i])
+                                    del (potCards[j])
+                    if flag == 0:
+                        build.throw(selectedcard, 1)
+                elif valhouse1 < 13 and int(str(selectedFaceCard[1:])) > valhouse1:
+                    if valhouse1 + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                        house1.append(selectedcard)
+                elif valhouse2 < 13 and int(str(selectedFaceCard[1:])) > valhouse2:
+                    if valhouse2 + int(str(selectedcard[1:])) == int(str(selectedFaceCard)):
+                        house2.append(selectedcard)
+                else:
+                    pick.pickCards(selectedcard, 0)
+
+    def build(selectedcard,potCards):
         popupbuild = Toplevel()
         popupbuild.title("Choose The House")
         popupbuild.geometry("300x150")
         Nine = Button(popupbuild, text="Nine")
         Nine.pack(side="top", fill=BOTH)
+        # Nine["command"]=lambda:buildHouse(selectedcard,9,1)
         Ten = Button(popupbuild, text="Ten")
         Ten.pack(fill=BOTH)
+        # Ten["command"] = lambda: buildHouse(selectedcard, 10, 1)
         Eleven = Button(popupbuild, text="Eleven")
         Eleven.pack(fill=BOTH)
+        # Eleven["command"] = lambda: buildHouse(selectedcard, 11, 1)
         Twelve = Button(popupbuild, text="Twelve")
         Twelve.pack(fill=BOTH)
+        # Twelve["command"] = lambda: buildHouse(selectedcard, 12, 1)
         Thirteen = Button(popupbuild, text="Thirteen")
         Thirteen.pack(fill=BOTH)
+        # Thirteen["command"] = lambda: buildHouse(selectedcard, 13, potCards ,1)
 
     def pickCardsPlayer(selelctedCard, potCards, button,panel,pimgname,potLabelIndicator):#for bots first move botPlayer =0 else 1
         print("this is pick by player function")
@@ -271,6 +367,12 @@ def vp_start_gui():
                             return potLabelIndicator, name
 
     house1=[]
+    house2=[]
+    def valHouse(house):
+        valHouse=0
+        for i in range(len(house)):
+            valHouse+=int(str(house[i][1:]))
+        return valHouse
     def buildBiddedHouse(bid, potCards, botCards,potlabel,pimgname,potLabelIndicator):
         print(potCards)
         print(bid)
@@ -331,7 +433,7 @@ def vp_start_gui():
 
         button33 = Button(toplevel, text="BUILD", height=3, width=10)
         button33.pack(expand=YES, fill=X)
-        button33["command"]=build
+        button33["command"]=lambda:build(selectedCard,potCards)
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ================================INITIALIZATION -----------------------------------------------
     #distribute cards phase 1
