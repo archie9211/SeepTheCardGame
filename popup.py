@@ -1,6 +1,6 @@
 import sys
 from tkinter import *
-
+import webbrowser
 ABOUT_TEXT = """
 Introduction of rules
 """
@@ -10,7 +10,7 @@ def rules():
     toplevel = Toplevel()
     labelx= Label(toplevel, text=ABOUT_TEXT, height=0, width=100)
     toplevel.title("RULES")
-    ebutton9 = Button(newwindow, text="Read Rules", command=callbackrules)
+    ebutton9 = Button(toplevel, text="Read Rules", command=callbackrules)
     ebutton9.pack(fill=BOTH)
     labelx.pack()
 def showError(string):
