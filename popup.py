@@ -2,10 +2,10 @@ import sys
 from tkinter import *
 import webbrowser
 ABOUT_TEXT = """
-Introduction of rules
+To read rules , Please head to website
 """
 def callbackrules():
-    webbrowser.open_new(r"rules url ")
+    webbrowser.open_new(r"cardsharpers.github.io/cardsharpers/ ")
 def rules():
     toplevel = Toplevel()
     labelx= Label(toplevel, text=ABOUT_TEXT, height=0, width=100)
